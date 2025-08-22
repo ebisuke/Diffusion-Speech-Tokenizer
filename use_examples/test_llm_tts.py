@@ -16,10 +16,16 @@ if __name__ == "__main__":
 
     # Inference on single sample
     audio = pipeline(
-        text="但是 to those who 知道 her well, it was a 标志 of her unwavering 决心 and spirit.",
+        text="But to those who know her well, it was a symbol of her unwavering determination and spirit.",
         prompt_text="In short, we embarked on a mission to make America great again, for all Americans.",
         prompt_speech_path="./use_examples/test_audio/trump_0.wav",
     )
+
+    # audio = pipeline(
+    #     text="寡妇马华莎，光汉贾家嘉。马华莎脸上麻，贾家嘉独眼瞎，两人登记成了家。贾家嘉不嫌马华莎麻，马华莎不嫌贾家嘉瞎。",
+    #     prompt_text="皇上登基都已经大半年了，可是，这每个月进后宫的日子，掰着指头都数的清楚。",
+    #     prompt_speech_path="./use_examples/test_audio/zh_005.wav",
+    # )
 
     # Save audio
     import soundfile as sf

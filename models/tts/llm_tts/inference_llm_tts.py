@@ -1,6 +1,3 @@
-import os
-import sys
-
 import torch
 import torch.nn as nn
 from typing import Optional
@@ -32,13 +29,23 @@ class TTSInferencePipeline(nn.Module):
         )
 
         # Load LLM directly from pretrained
-        self.llm = AutoModelForCausalLM.from_pretrained(
-            llm_path,
-            device_map=device,
-            torch_dtype="auto",
-            trust_remote_code=True,
-            attn_implementation="flash_attention_2",
-        )
+        # Try to use flash attention 2, fallback to default if not available
+        try:
+            self.llm = AutoModelForCausalLM.from_pretrained(
+                llm_path,
+                device_map=device,
+                torch_dtype="auto",
+                trust_remote_code=True,
+                attn_implementation="flash_attention_2",
+            )
+        except Exception as e:
+            print(f"Flash attention 2 not available, using default attention: {e}")
+            self.llm = AutoModelForCausalLM.from_pretrained(
+                llm_path,
+                device_map=device,
+                torch_dtype="auto",
+                trust_remote_code=True,
+            )
 
         # Load tokenizer directly from pretrained
         self.tokenizer = AutoTokenizer.from_pretrained(
@@ -153,7 +160,7 @@ class TTSInferencePipeline(nn.Module):
         output = self.tokenizer.decode(generate_ids[0], skip_special_tokens=False)
 
         combine_speech_code = self.extract_audio_ids(output)
-        indices = torch.tensor(combine_speech_code).unsqueeze(0).to(self.device)
+        indices = torch.tensor(combine_speech_code).unsqueeze(0).long().to(self.device)
 
         if return_code:
             return indices

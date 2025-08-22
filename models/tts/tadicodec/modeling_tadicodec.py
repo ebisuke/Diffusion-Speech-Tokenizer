@@ -454,7 +454,7 @@ class TaDiCodec(nn.Module):
         Returns:
             torch.Tensor: The corresponding continuous codebook embeddings.
         """
-        return self.bsq.get_codebook_entry(indices)
+        return self.bsq.get_codebook_entry(indices).float()
 
     @torch.no_grad()
     def reverse_diffusion(
@@ -490,7 +490,7 @@ class TaDiCodec(nn.Module):
         """
         if vq_emb is None:
             assert indices is not None, "Either vq_emb or indices must be provided"
-            vq_emb = self.index2vq(indices)
+            vq_emb = self.index2vq(indices.long())
 
         # Upsample VQ embeddings to match the target mel length
         vq_emb_post = self.vq_out_linear(vq_emb)

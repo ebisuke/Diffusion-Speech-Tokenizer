@@ -43,6 +43,7 @@ class TaDiCodecPipline(nn.Module):
 
         self.tadicodec = TaDiCodec(cfg=tadiconfig)
         safetensors.torch.load_model(self.tadicodec, model_path, strict=False)
+        self.tadicodec.to(torch.float32)
         self.tadicodec.to(device)
         self.tadicodec.eval()
 
@@ -58,7 +59,7 @@ class TaDiCodecPipline(nn.Module):
     @classmethod
     def from_pretrained(
         cls,
-        ckpt_dir: str = "./ckpt/tadicodec",
+        ckpt_dir: str = "./ckpt/TaDiCodec",
         device: Optional[torch.device] = None,
     ):
         """Create a pipeline from a checkpoint directory.
@@ -215,13 +216,3 @@ class TaDiCodecPipline(nn.Module):
             rescale_cfg=rescale_cfg,
         )
         return rec_mel
-
-
-# if __name__ == "__main__":
-
-# pipe = TaDiCodecWrapper(cfg, model_path, torch.device("cuda:0"))
-# audio = pipe(text="你好", speech_path="/path/to/target.wav",
-#             prompt_text="你好", prompt_speech_path="/path/to/prompt.wav",
-#             n_timesteps=32, cfg_scale=2.0)
-
-# codes = pipe(text="...", speech_path="/path/to/target.wav", return_code=True)
