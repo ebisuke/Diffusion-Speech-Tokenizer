@@ -16,12 +16,12 @@
 
 [![GitHub Stars](https://img.shields.io/github/stars/HeCheng0625/Diffusion-Speech-Tokenizer?style=social)](https://github.com/HeCheng0625/Diffusion-Speech-Tokenizer)
 [![arXiv](https://img.shields.io/badge/arXiv-2024.xxxxx-b31b1b.svg)](https://hecheng0625.github.io/assets/pdf/Arxiv_TaDiCodec.pdf)
-[![Demo](https://img.shields.io/badge/🎬%20Demo-tadicodec-green?style=flat-square)](https://tadicodec.github.io/)
+[![Demo](https://img.shields.io/badge/🎬%20Demo-tadicodec-green)](https://tadicodec.github.io/)
 [![Python](https://img.shields.io/badge/Python-3.8+-3776ab.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
-[![Hugging Face](https://img.shields.io/badge/🤗%20HuggingFace-tadicodec-yellow?style=flat-square)](https://huggingface.co/amphion/TaDiCodec)
+[![Hugging Face](https://img.shields.io/badge/🤗%20HuggingFace-tadicodec-yellow)](https://huggingface.co/amphion/TaDiCodec)
 
-<!-- [![ModelScope](https://img.shields.io/badge/🔮%20ModelScope-tadicodec-blue?style=flat-square)](https://modelscope.cn/models/amphion/TaDiCodec) -->
+<!-- [![ModelScope](https://img.shields.io/badge/🔮%20ModelScope-tadicodec-blue)](https://modelscope.cn/models/amphion/TaDiCodec) -->
 
 
 </div>
@@ -56,8 +56,8 @@ We introduce the **T**ext-**a**ware **Di**ffusion Transformer Speech **Codec** (
 </div>
 
 <!-- - **🎉 [2025-08-11]** TaDiCodec is accepted by NeurIPS 2025! -->
-- **🚀 [2025-08-11]** We release the offical implementation of TaDiCodec and the TTS models based on TaDiCodec.
-- **🔥 [2025-08-11]** TaDiCodec paper released! Check out our [arXiv preprint](https://hecheng0625.github.io/assets/pdf/Arxiv_TaDiCodec.pdf)
+- **🚀 [2025-08-25]** We release the offical implementation of TaDiCodec and the TTS models based on TaDiCodec.
+- **🔥 [2025-08-25]** TaDiCodec paper released! Check out our [arXiv preprint](https://hecheng0625.github.io/assets/pdf/Arxiv_TaDiCodec.pdf)
 
 ---
 
@@ -115,17 +115,19 @@ We introduce the **T**ext-**a**ware **Di**ffusion Transformer Speech **Codec** (
 
 | Model | 🤗 Hugging Face | 👷 Status |
 |:-----:|:---------------:|:------:|
-| **🚀 TaDiCodec** | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec-yellow?style=flat-square)](https://huggingface.co/amphion/TaDiCodec) | ✅ |
-| **🚀 TaDiCodec-old** | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--old-yellow?style=flat-square)](https://huggingface.co/amphion/TaDiCodec-old) | 🚧 |
+| **🚀 TaDiCodec** | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec-yellow)](https://huggingface.co/amphion/TaDiCodec) | ✅ |
+| **🚀 TaDiCodec-old** | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--old-yellow)](https://huggingface.co/amphion/TaDiCodec-old) | 🚧 |
 
 *Note: TaDiCodec-old is the old version of TaDiCodec, the TaDiCodec-TTS-AR-Phi-3.5-4B is based on TaDiCodec-old.*
 
+### 🎤 TTS Models
+
 | Model | Type | LLM | 🤗 Hugging Face | 👷 Status |
 |:-----:|:----:|:---:|:---------------:|:-------------:|
-| **🤖 TaDiCodec-TTS-AR-Qwen2.5-0.5B** | AR | Qwen2.5-0.5B-Instruct | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--AR--0.5B-yellow?style=flat-square)](https://huggingface.co/amphion/TaDiCodec-TTS-AR-Qwen2.5-0.5B) | ✅ |
-| **🤖 TaDiCodec-TTS-AR-Qwen2.5-3B** | AR | Qwen2.5-3B-Instruct | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--AR--3B-yellow?style=flat-square)](https://huggingface.co/amphion/TaDiCodec-TTS-AR-Qwen2.5-3B) | ✅ |
-| **🤖 TaDiCodec-TTS-AR-Phi-3.5-4B** | AR | Phi-3.5-mini-instruct | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--AR--4B-yellow?style=flat-square)](https://huggingface.co/amphion/TaDiCodec-TTS-AR-Phi-3.5-4B) | 🚧 |
-| **🌊 TaDiCodec-TTS-MGM-0.6B** | MGM | - | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--MGM--0.6B-yellow?style=flat-square)](https://huggingface.co/amphion/TaDiCodec-TTS-MGM-0.6B) | ✅ |
+| **🤖 TaDiCodec-TTS-AR-Qwen2.5-0.5B** | AR | Qwen2.5-0.5B-Instruct | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--AR--0.5B-yellow)](https://huggingface.co/amphion/TaDiCodec-TTS-AR-Qwen2.5-0.5B) | ✅ |
+| **🤖 TaDiCodec-TTS-AR-Qwen2.5-3B** | AR | Qwen2.5-3B-Instruct | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--AR--3B-yellow)](https://huggingface.co/amphion/TaDiCodec-TTS-AR-Qwen2.5-3B) | ✅ |
+| **🤖 TaDiCodec-TTS-AR-Phi-3.5-4B** | AR | Phi-3.5-mini-instruct | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--AR--4B-yellow)](https://huggingface.co/amphion/TaDiCodec-TTS-AR-Phi-3.5-4B) | 🚧 |
+| **🌊 TaDiCodec-TTS-MGM** | MGM | - | [![HF](https://img.shields.io/badge/🤗%20HF-TaDiCodec--MGM-yellow)](https://huggingface.co/amphion/TaDiCodec-TTS-MGM) | ✅ |
 
 - [ ] ModelScope will be updated soon.
 
@@ -141,7 +143,7 @@ from models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
 tokenizer = TaDiCodecPipline.from_pretrained("amphion/TaDiCodec")
 
 # Load AR TTS model, it will automatically download the model from Hugging Face for the first time  
-tts_model = TTSInferencePipeline.from_pretrained("amphion/TaDiCodec-TTS-AR-Qwen2.5-0.5B")
+tts_model = TTSInferencePipeline.from_pretrained("amphion/TaDiCodec-TTS-AR-Qwen2.5-3B")
 
 # Load MGM TTS model, it will automatically download the model from Hugging Face for the first time
 tts_model = MGMInferencePipeline.from_pretrained("amphion/TaDiCodec-TTS-MGM")
@@ -203,13 +205,14 @@ sf.write("./use_examples/test_audio/trump_rec.wav", rec_audio, 24000)
 import torch
 import soundfile as sf
 from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+# from models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Create AR TTS pipeline
 pipeline = TTSInferencePipeline.from_pretrained(
     tadicodec_path="./ckpt/TaDiCodec",
-    llm_path="./ckpt/TaDiCodec-TTS-AR-Qwen2.5-0.5B",
+    llm_path="./ckpt/TaDiCodec-TTS-AR-Qwen2.5-3B",
     device=device,
 )
 
@@ -289,19 +292,19 @@ MaskGCT:
 
 ## 📄 License
 
-TaDiCodec is icensed under the Apache 2.0.
+TaDiCodec is licensed under the Apache 2.0.
 
 ## 🙏 Acknowledgments
 
-- **Training codebase** is built upon [Amphion](https://github.com/open-mmlab/Amphion) and [accelerate](link).
+- **MGM-based TTS** is built upon [MaskGCT](https://github.com/open-mmlab/Amphion/tree/main/models/tts/maskgct).
 
-- **MGM-based TTS** is built upon [MaskGCT](link).
-
-- **Vocos vocoder** is built upon [Vocos](link).
+- **Vocos vocoder** is built upon [Vocos](https://github.com/gemelo-ai/vocos).
 
 - **NAR Llama-style transformers** is built upon [transformers](https://github.com/huggingface/transformers).
 
 - **(Binary Spherical Quantization) BSQ** is built upon [vector-quantize-pytorch](https://github.com/lucidrains/vector-quantize-pytorch) and [bsq-vit](https://github.com/zhaoyue-zephyrus/bsq-vit).
+
+- **Training codebase** is built upon [Amphion](https://github.com/open-mmlab/Amphion) and [accelerate](https://github.com/huggingface/accelerate).
 
 ---
 

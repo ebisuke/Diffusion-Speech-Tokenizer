@@ -10,7 +10,7 @@ if __name__ == "__main__":
     # Create pipeline
     pipeline = TTSInferencePipeline.from_pretrained(
         tadicodec_path="./ckpt/TaDiCodec",
-        llm_path="./ckpt/TaDiCodec-TTS-AR-Qwen2.5-0.5B",
+        llm_path="./ckpt/TaDiCodec-TTS-AR-Qwen2.5-3B",
         device=device,
     )
 
