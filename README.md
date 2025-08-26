@@ -12,10 +12,10 @@
 <!-- *A series of works on diffusion-based speech tokenizers* -->
 
 <!-- TODO: replace the paper link to the arXiv link -->
-📄 **Paper**: [TaDiCodec: Text-aware Diffusion Speech Tokenizer for Speech Language Modeling](https://hecheng0625.github.io/assets/pdf/Arxiv_TaDiCodec.pdf)
+📄 **Paper**: [TaDiCodec: Text-aware Diffusion Speech Tokenizer for Speech Language Modeling](https://arxiv.org/abs/2508.16790)
 
 [![GitHub Stars](https://img.shields.io/github/stars/HeCheng0625/Diffusion-Speech-Tokenizer?style=social)](https://github.com/HeCheng0625/Diffusion-Speech-Tokenizer)
-[![arXiv](https://img.shields.io/badge/arXiv-2025.xxxxx-b31b1b.svg)](https://hecheng0625.github.io/assets/pdf/Arxiv_TaDiCodec.pdf)
+[![arXiv](https://img.shields.io/badge/arXiv-2025.xxxxx-b31b1b.svg)](https://arxiv.org/abs/2508.16790)
 [![Demo](https://img.shields.io/badge/🎬%20Demo-tadicodec-green)](https://tadicodec.github.io/)
 [![Python](https://img.shields.io/badge/Python-3.8+-3776ab.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
@@ -30,7 +30,7 @@
 
 ## 📋 Overview
 
-This repository is designed to provide comprehensive implementations for our series of diffusion-based speech tokenizer research works. Currently, it primarily features [**TaDiCodec**](https://hecheng0625.github.io/assets/pdf/Arxiv_TaDiCodec.pdf), with plans to include additional in-progress works in the future. Specifically, the repository includes:
+This repository is designed to provide comprehensive implementations for our series of diffusion-based speech tokenizer research works. Currently, it primarily features [**TaDiCodec**](https://arxiv.org/abs/2508.16790), with plans to include additional in-progress works in the future. Specifically, the repository includes:
 
 - 🧠 A simple PyTorch implementation of the TaDiCodec tokenizer
 - 🎯 Token-based zero-shot TTS models based on TaDiCodec:
@@ -39,7 +39,7 @@ This repository is designed to provide comprehensive implementations for our ser
 - 🏋️ Training scripts for tokenizer and TTS models
 - 🤗 [Hugging Face](https://huggingface.co/amphion/tadicodec) and 🔮 [ModelScope](https://modelscope.cn/models/amphion/tadicodec) (to be updated) for easy access to pre-trained models
 
-Short Intro on [**TaDiCodec: Text-aware Diffusion Speech Tokenizer for Speech Language Modeling**](https://hecheng0625.github.io/assets/pdf/Arxiv_TaDiCodec.pdf):
+Short Intro on [**TaDiCodec: Text-aware Diffusion Speech Tokenizer for Speech Language Modeling**](https://arxiv.org/abs/2508.16790):
 
 We introduce the **T**ext-**a**ware **Di**ffusion Transformer Speech **Codec** (TaDiCodec), a novel approach to speech tokenization that employs end-to-end optimization for quantization and reconstruction through a **diffusion autoencoder**, while integrating **text guidance** into the diffusion decoder to enhance reconstruction quality and achieve **optimal compression**. TaDiCodec achieves an extremely low frame rate of **6.25 Hz** and a corresponding bitrate of **0.0875 kbps** with a single-layer codebook for **24 kHz speech**, while maintaining superior performance on critical speech generation evaluation metrics such as Word Error Rate (WER), speaker similarity (SIM), and speech quality (UTMOS).
 
@@ -57,7 +57,7 @@ We introduce the **T**ext-**a**ware **Di**ffusion Transformer Speech **Codec** (
 
 <!-- - **🎉 [2025-08-11]** TaDiCodec is accepted by NeurIPS 2025! -->
 - **🚀 [2025-08-25]** We release the offical implementation of TaDiCodec and the TTS models based on TaDiCodec.
-- **🔥 [2025-08-25]** TaDiCodec paper released! Check out our [arXiv preprint](https://hecheng0625.github.io/assets/pdf/Arxiv_TaDiCodec.pdf)
+- **🔥 [2025-08-25]** TaDiCodec paper released! Check out our [arXiv preprint](https://arxiv.org/abs/2508.16790)
 
 ---
 
@@ -263,7 +263,7 @@ TaDiCodec:
   author={Yuancheng Wang, Dekun Chen, Xueyao Zhang, Junan Zhang, Jiaqi Li, Zhizheng Wu},
   journal={arXiv preprint},
   year={2025},
-  url={https://hecheng0625.github.io/assets/pdf/Arxiv_TaDiCodec.pdf}
+  url={https://arxiv.org/abs/2508.16790}
 }
 ```
 
