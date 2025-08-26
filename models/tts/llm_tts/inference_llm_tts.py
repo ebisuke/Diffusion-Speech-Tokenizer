@@ -112,7 +112,7 @@ class TTSInferencePipeline(nn.Module):
         top_k: int = 50,
         top_p: float = 0.98,
         temperature: float = 1.0,
-        n_timesteps: int = 25,
+        n_timesteps: int = 16,
         return_code: bool = False,
     ):
         """
