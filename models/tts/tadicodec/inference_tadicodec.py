@@ -7,6 +7,7 @@ import torch.nn as nn
 import librosa
 import safetensors
 import accelerate
+from huggingface_hub import snapshot_download
 
 from transformers import AutoTokenizer
 
@@ -61,8 +62,9 @@ class TaDiCodecPipline(nn.Module):
         cls,
         ckpt_dir: str = "./ckpt/TaDiCodec",
         device: Optional[torch.device] = None,
+        auto_download: bool = True,
     ):
-        """Create a pipeline from a checkpoint directory.
+        """Create a pipeline from a checkpoint directory or Hugging Face model ID.
 
         Expected structure under `ckpt_dir`:
           - config.json                # model and preprocess config
@@ -74,8 +76,9 @@ class TaDiCodecPipline(nn.Module):
               tokenizer_config.json
 
         Args:
-            ckpt_dir: Directory containing `config.json`, `model.safetensors`, and `vocoder/`.
+            ckpt_dir: Directory containing `config.json`, `model.safetensors`, and `vocoder/`, or Hugging Face model ID.
             device: Device to place models on. Defaults to CUDA if available else CPU.
+            auto_download: Whether to automatically download models from Hugging Face if not found locally
 
         Returns:
             TaDiCodecPipline
@@ -90,19 +93,24 @@ class TaDiCodecPipline(nn.Module):
             else torch.device("cuda" if torch.cuda.is_available() else "cpu")
         )
 
+        # Resolve checkpoint directory
+        resolved_ckpt_dir = cls._resolve_model_path(
+            ckpt_dir, auto_download=auto_download, model_type="tadicodec"
+        )
+
         # Load config
-        config_path = os.path.join(ckpt_dir, "config.json")
+        config_path = os.path.join(resolved_ckpt_dir, "config.json")
         if not os.path.exists(config_path):
             raise FileNotFoundError(f"Config not found: {config_path}")
         cfg = load_config(config_path, lowercase=False)
 
         # Resolve main model weights
-        model_weights_path = os.path.join(ckpt_dir, "model.safetensors")
+        model_weights_path = os.path.join(resolved_ckpt_dir, "model.safetensors")
 
         # Resolve vocoder weights
-        vocoder_ckpt_path = os.path.join(ckpt_dir, "vocoder")
+        vocoder_ckpt_path = os.path.join(resolved_ckpt_dir, "vocoder")
 
-        text_tokenizer_dir = os.path.join(ckpt_dir, "text_tokenizer")
+        text_tokenizer_dir = os.path.join(resolved_ckpt_dir, "text_tokenizer")
 
         return cls(
             cfg=cfg,
@@ -111,6 +119,59 @@ class TaDiCodecPipline(nn.Module):
             vocoder_ckpt_path=vocoder_ckpt_path,
             tokenizer_path=text_tokenizer_dir,
         )
+
+    @staticmethod
+    def _resolve_model_path(
+        model_path: str, auto_download: bool = True, model_type: str = "tadicodec"
+    ) -> str:
+        """
+        Resolve model path, downloading from Hugging Face if necessary
+
+        Args:
+            model_path: Local path or Hugging Face model ID
+            auto_download: Whether to auto-download from HF
+            model_type: Type of model ("tadicodec")
+
+        Returns:
+            Resolved local path
+        """
+        # If it's already a local path and exists, return as is
+        if os.path.exists(model_path):
+            return model_path
+
+        # If it looks like a Hugging Face model ID (contains '/')
+        if "/" in model_path and auto_download:
+            print(f"Downloading {model_type} model from Hugging Face: {model_path}")
+            try:
+                # Download to cache directory
+                cache_dir = os.path.join(
+                    os.path.expanduser("~"), ".cache", "huggingface", "hub"
+                )
+                downloaded_path = snapshot_download(
+                    repo_id=model_path,
+                    cache_dir=cache_dir,
+                    local_dir_use_symlinks=False,
+                )
+                print(
+                    f"Successfully downloaded {model_type} model to: {downloaded_path}"
+                )
+                return downloaded_path
+            except Exception as e:
+                print(f"Failed to download {model_type} model from Hugging Face: {e}")
+                raise ValueError(
+                    f"Could not download {model_type} model from {model_path}"
+                )
+
+        # If it's a local path that doesn't exist
+        if not os.path.exists(model_path):
+            if auto_download:
+                raise ValueError(
+                    f"Model path does not exist: {model_path}. Set auto_download=True to download from Hugging Face."
+                )
+            else:
+                raise FileNotFoundError(f"Model path does not exist: {model_path}")
+
+        return model_path
 
     @torch.no_grad()
     def __call__(

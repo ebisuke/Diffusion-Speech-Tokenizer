@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import librosa
+from huggingface_hub import snapshot_download
 
 import torch
 import torch.nn as nn
@@ -103,14 +104,16 @@ class MGMInferencePipeline(nn.Module):
         tadicodec_path: str = "./ckpt/TaDiCodec",
         mgm_path: str = "./ckpt/TaDiCodec-TTS-MGM",
         device: Optional[torch.device] = None,
+        auto_download: bool = True,
     ):
         """
         Create pipeline from pretrained models
 
         Args:
-            tadicodec_path: Path to TaDiCodec model
-            mgm_path: Path to MGM model directory (should contain config.json and model.safetensors)
+            tadicodec_path: Path to TaDiCodec model or Hugging Face model ID
+            mgm_path: Path to MGM model directory or Hugging Face model ID
             device: Device to run on
+            auto_download: Whether to automatically download models from Hugging Face if not found locally
 
         Returns:
             MGMInferencePipeline instance
@@ -121,11 +124,74 @@ class MGMInferencePipeline(nn.Module):
             else torch.device("cuda" if torch.cuda.is_available() else "cpu")
         )
 
+        # Handle TaDiCodec path
+        resolved_tadicodec_path = cls._resolve_model_path(
+            tadicodec_path, auto_download=auto_download, model_type="tadicodec"
+        )
+
+        # Handle MGM path
+        resolved_mgm_path = cls._resolve_model_path(
+            mgm_path, auto_download=auto_download, model_type="mgm"
+        )
+
         return cls(
-            tadicodec_path=tadicodec_path,
-            mgm_path=mgm_path,
+            tadicodec_path=resolved_tadicodec_path,
+            mgm_path=resolved_mgm_path,
             device=resolved_device,
         )
+
+    @staticmethod
+    def _resolve_model_path(
+        model_path: str, auto_download: bool = True, model_type: str = "mgm"
+    ) -> str:
+        """
+        Resolve model path, downloading from Hugging Face if necessary
+
+        Args:
+            model_path: Local path or Hugging Face model ID
+            auto_download: Whether to auto-download from HF
+            model_type: Type of model ("mgm" or "tadicodec")
+
+        Returns:
+            Resolved local path
+        """
+        # If it's already a local path and exists, return as is
+        if os.path.exists(model_path):
+            return model_path
+
+        # If it looks like a Hugging Face model ID (contains '/')
+        if "/" in model_path and auto_download:
+            print(f"Downloading {model_type} model from Hugging Face: {model_path}")
+            try:
+                # Download to cache directory
+                cache_dir = os.path.join(
+                    os.path.expanduser("~"), ".cache", "huggingface", "hub"
+                )
+                downloaded_path = snapshot_download(
+                    repo_id=model_path,
+                    cache_dir=cache_dir,
+                    local_dir_use_symlinks=False,
+                )
+                print(
+                    f"Successfully downloaded {model_type} model to: {downloaded_path}"
+                )
+                return downloaded_path
+            except Exception as e:
+                print(f"Failed to download {model_type} model from Hugging Face: {e}")
+                raise ValueError(
+                    f"Could not download {model_type} model from {model_path}"
+                )
+
+        # If it's a local path that doesn't exist
+        if not os.path.exists(model_path):
+            if auto_download:
+                raise ValueError(
+                    f"Model path does not exist: {model_path}. Set auto_download=True to download from Hugging Face."
+                )
+            else:
+                raise FileNotFoundError(f"Model path does not exist: {model_path}")
+
+        return model_path
 
     @torch.no_grad()
     def __call__(

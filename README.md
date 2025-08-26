@@ -58,6 +58,7 @@ We introduce the **T**ext-**a**ware **Di**ffusion Transformer Speech **Codec** (
 <!-- - **🎉 [2025-08-11]** TaDiCodec is accepted by NeurIPS 2025! -->
 - **🚀 [2025-08-25]** We release the offical implementation of TaDiCodec and the TTS models based on TaDiCodec.
 - **🔥 [2025-08-25]** TaDiCodec paper released! Check out our [arXiv preprint](https://arxiv.org/abs/2508.16790)
+- **📦 [2025-08-25]** Added auto-download functionality from Hugging Face for all models!
 
 ---
 
@@ -78,8 +79,9 @@ We introduce the **T**ext-**a**ware **Di**ffusion Transformer Speech **Codec** (
   - [x] NAR Llama-style transformers for encoder and decoder architectures
   - [x] text-aware flow matching (diffusion) decoder
   - [x] vocoder for mel2wav
-- [ ] ⚡ **Inference Pipeline**
+- [x] ⚡ **Inference Pipeline**
   - [x] Basic inference pipeline
+  - [x] Auto-download from Hugging Face
   - [ ] Add auto-ASR for text input
 
 ### 🎓 Training Infrastructure
@@ -134,19 +136,31 @@ We introduce the **T**ext-**a**ware **Di**ffusion Transformer Speech **Codec** (
 ### 🔧 Quick Model Usage
 
 ```python
-# 🤗 Load from Hugging Face
+# 🤗 Load from Hugging Face with Auto-Download
 from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
 from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
 from models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
 
-# Load TaDiCodec tokenizer, it will automatically download the model from Hugging Face for the first time
+# Load TaDiCodec tokenizer (auto-downloads from HF if not found locally)
 tokenizer = TaDiCodecPipline.from_pretrained("amphion/TaDiCodec")
 
-# Load AR TTS model, it will automatically download the model from Hugging Face for the first time  
-tts_model = TTSInferencePipeline.from_pretrained("amphion/TaDiCodec-TTS-AR-Qwen2.5-3B")
+# Load AR TTS model (auto-downloads from HF if not found locally)
+tts_model = TTSInferencePipeline.from_pretrained(
+    tadicodec_path="amphion/TaDiCodec",
+    llm_path="amphion/TaDiCodec-TTS-AR-Qwen2.5-0.5B"
+)
 
-# Load MGM TTS model, it will automatically download the model from Hugging Face for the first time
-tts_model = MGMInferencePipeline.from_pretrained("amphion/TaDiCodec-TTS-MGM")
+# Load MGM TTS model (auto-downloads from HF if not found locally)
+mgm_model = MGMInferencePipeline.from_pretrained(
+    tadicodec_path="amphion/TaDiCodec",
+    mgm_path="amphion/TaDiCodec-TTS-MGM-0.6B"
+)
+
+# You can also use local paths if you have models downloaded
+# tts_model = TTSInferencePipeline.from_pretrained(
+#     tadicodec_path="./ckpt/TaDiCodec",
+#     llm_path="./ckpt/TaDiCodec-TTS-AR-Qwen2.5-0.5B"
+# )
 ```
 
 ---
@@ -164,6 +178,27 @@ cd Diffusion-Speech-Tokenizer
 bash env.sh
 ```
 
+### 🔄 Auto-Download from Hugging Face
+
+All models support automatic download from Hugging Face! Simply use the Hugging Face model ID instead of local paths:
+
+```python
+# Models will be automatically downloaded on first use
+from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
+from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+
+# Auto-download TaDiCodec
+tokenizer = TaDiCodecPipline.from_pretrained("amphion/TaDiCodec")
+
+# Auto-download TTS pipeline (downloads both TaDiCodec and LLM)
+pipeline = TTSInferencePipeline.from_pretrained(
+    tadicodec_path="amphion/TaDiCodec",
+    llm_path="amphion/TaDiCodec-TTS-AR-Qwen2.5-0.5B"
+)
+```
+
+**Note**: Models are cached locally after first download for faster subsequent use.
+
 ### Basic Usage
 
 **Please refer to the [use_examples](./use_examples) folder for more detailed usage examples.**
@@ -178,7 +213,12 @@ import soundfile as sf
 from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-pipe = TaDiCodecPipline.from_pretrained(ckpt_dir="./ckpt/TaDiCodec", device=device)
+
+# Auto-download from Hugging Face if not found locally
+pipe = TaDiCodecPipline.from_pretrained(ckpt_dir="amphion/TaDiCodec", device=device)
+
+# Or use local path if you have models downloaded
+# pipe = TaDiCodecPipline.from_pretrained(ckpt_dir="./ckpt/TaDiCodec", device=device)
 
 # Text of the prompt audio
 prompt_text = "In short, we embarked on a mission to make America great again, for all Americans."
@@ -209,16 +249,23 @@ from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Create AR TTS pipeline
+# Create AR TTS pipeline with auto-download from Hugging Face
 pipeline = TTSInferencePipeline.from_pretrained(
-    tadicodec_path="./ckpt/TaDiCodec",
-    llm_path="./ckpt/TaDiCodec-TTS-AR-Qwen2.5-3B",
+    tadicodec_path="amphion/TaDiCodec",
+    llm_path="amphion/TaDiCodec-TTS-AR-Qwen2.5-0.5B",
     device=device,
 )
 
-# Inference on single sample, you can also use the MGM TTS pipeline
+# Or use local paths if you have models downloaded
+# pipeline = TTSInferencePipeline.from_pretrained(
+#     tadicodec_path="./ckpt/TaDiCodec",
+#     llm_path="./ckpt/TaDiCodec-TTS-AR-Qwen2.5-0.5B",
+#     device=device,
+# )
+
+# Generate speech with code-switching support
 audio = pipeline(
-    text="但是 to those who 知道 her well, it was a 标志 of her unwavering 决心 and spirit.",   # code-switching cases are supported
+    text="但是 to those who 知道 her well, it was a 标志 of her unwavering 决心 and spirit.",
     prompt_text="In short, we embarked on a mission to make America great again, for all Americans.",
     prompt_speech_path="./use_examples/test_audio/trump_0.wav",
 )

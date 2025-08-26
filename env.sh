@@ -1,6 +1,7 @@
 pip install setuptools ruamel.yaml tqdm 
 pip install tensorboard tensorboardX torch==2.0.1
 pip install transformers===4.41.1
+pip install huggingface_hub
 pip install -U encodec
 pip install black==24.1.1
 pip install oss2
@@ -13,7 +14,6 @@ pip install funasr zhconv zhon modelscope
 pip install timm
 pip install jieba cn2an
 pip install unidecode
-pip install -U cos-python-sdk-v5
 pip install pypinyin
 pip install jiwer
 pip install omegaconf
