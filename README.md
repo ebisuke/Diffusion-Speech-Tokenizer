@@ -175,7 +175,9 @@ git clone https://github.com/HeCheng0625/Diffusion-Speech-Tokenizer.git
 cd Diffusion-Speech-Tokenizer
 
 # Install dependencies
-bash env.sh
+# bash env.sh
+conda create -n tadicodec python=3.10
+pip install -r requirements.txt
 ```
 
 ### 🔄 Auto-Download from Hugging Face
