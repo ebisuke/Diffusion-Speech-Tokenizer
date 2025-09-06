@@ -1,8 +1,6 @@
 setuptools
 ruamel.yaml
 tqdm
-tensorboard
-tensorboardX
 onnxruntime
 torch
 huggingface_hub
