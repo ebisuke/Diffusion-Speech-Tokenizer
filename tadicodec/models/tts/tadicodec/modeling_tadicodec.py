@@ -5,8 +5,8 @@ import math
 from einops import rearrange
 from typing import Optional, Dict, Any
 
-from models.tts.tadicodec.llama_nar_prefix import DiffLlamaPrefix
-from models.codec.amphion_codec.quantize.bsq import (
+from tadicodec.models.tts.tadicodec.llama_nar_prefix import DiffLlamaPrefix
+from tadicodec.models.codec.amphion_codec.quantize.bsq import (
     BinarySphericalQuantizer,
     SimpleQuantizer,
 )

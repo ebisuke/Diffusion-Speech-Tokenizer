@@ -11,8 +11,8 @@ from huggingface_hub import snapshot_download
 
 from transformers import AutoTokenizer
 
-from models.tts.tadicodec.infer_utils import build_vocoder_model, build_mel_model
-from models.tts.tadicodec.modeling_tadicodec import TaDiCodec
+from tadicodec.models.tts.tadicodec.infer_utils import build_vocoder_model, build_mel_model
+from tadicodec.models.tts.tadicodec.modeling_tadicodec import TaDiCodec
 
 
 class TaDiCodecPipline(nn.Module):
@@ -85,7 +85,7 @@ class TaDiCodecPipline(nn.Module):
         """
         import os
         import glob
-        from utils.util import load_config
+        from tadicodec.utils.util import load_config
 
         resolved_device = (
             device

@@ -5,7 +5,7 @@ import soundfile as sf
 import sys
 sys.path.append('../')
 
-from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
+from tadicodec.models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
 
 if __name__ == "__main__":
 

@@ -5,8 +5,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 from huggingface_hub import snapshot_download
 
-from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
-from models.tts.llm_tts.chat_template import gen_chat_prompt_for_tts
+from tadicodec.models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
+from tadicodec.models.tts.llm_tts.chat_template import gen_chat_prompt_for_tts
 
 
 class TTSInferencePipeline(nn.Module):

@@ -1,5 +1,5 @@
-from models.codec.melvqgan.melspec import MelSpectrogram
-from models.codec.amphion_codec.vocos import Vocos
+from tadicodec.models.codec.melvqgan.melspec import MelSpectrogram
+from tadicodec.models.codec.amphion_codec.vocos import Vocos
 
 
 def build_vocoder_model(cfg, device):

@@ -9,12 +9,12 @@ import torch.nn as nn
 from typing import Optional
 import safetensors
 from transformers import AutoTokenizer
-from utils.util import load_config
+from tadicodec.utils.util import load_config
 
-from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
-from models.tts.llm_tts.mgm import MGMT2S
+from tadicodec.models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
+from tadicodec.models.tts.llm_tts.mgm import MGMT2S
 
-from models.tts.llm_tts.chat_template import gen_chat_prompt_for_tts
+from tadicodec.models.tts.llm_tts.chat_template import gen_chat_prompt_for_tts
 
 
 class MGMInferencePipeline(nn.Module):

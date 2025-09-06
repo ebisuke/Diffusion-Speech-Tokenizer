@@ -4,7 +4,7 @@ import torch
 import sys
 sys.path.append('../')
 
-from models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
+from tadicodec.models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
 
 
 # Usage example

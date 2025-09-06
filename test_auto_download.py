@@ -5,9 +5,9 @@ Test script for auto-download functionality from Hugging Face
 
 import torch
 import soundfile as sf
-from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
-from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
-from models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
+from tadicodec.models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
+from tadicodec.models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+from tadicodec.models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
 
 
 def test_tadicodec_auto_download():

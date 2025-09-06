@@ -2,18 +2,16 @@ import math
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from einops import rearrange
 from torch.nn.utils import weight_norm
 
-from models.codec.amphion_codec.quantize import (
+from tadicodec.models.codec.amphion_codec.quantize import (
     ResidualVQ,
-    VectorQuantize,
     FactorizedVectorQuantize,
     LookupFreeQuantize,
 )
 
-from models.codec.amphion_codec.vocos import Vocos
+from tadicodec.models.codec.amphion_codec.vocos import Vocos
 
 
 def WNConv1d(*args, **kwargs):

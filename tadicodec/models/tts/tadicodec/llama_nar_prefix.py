@@ -158,6 +158,7 @@ class LlamaNARDecoderLayer(LlamaDecoderLayer):
         cond_embedding: torch.Tensor,
         attention_mask: Optional[torch.Tensor] = None,
         position_ids: Optional[torch.LongTensor] = None,
+            position_embeddings: Optional[torch.Tensor] = None,
         past_key_value: Optional[Tuple[torch.Tensor]] = None,
         output_attentions: Optional[bool] = False,
         use_cache: Optional[bool] = False,
@@ -189,12 +190,13 @@ class LlamaNARDecoderLayer(LlamaDecoderLayer):
         )
 
         # Self Attention block
-        hidden_states, self_attn_weights, present_key_value = self.self_attn(
+        hidden_states, self_attn_weights = self.self_attn(
             hidden_states=hidden_states,
             attention_mask=attention_mask,
             position_ids=position_ids,
             past_key_value=past_key_value,
             output_attentions=output_attentions,
+            position_embeddings=position_embeddings,
             use_cache=use_cache,
         )
         hidden_states = residual + hidden_states
@@ -214,7 +216,7 @@ class LlamaNARDecoderLayer(LlamaDecoderLayer):
             outputs += (self_attn_weights,)
 
         if use_cache:
-            outputs += (present_key_value,)
+            outputs += (past_key_value,)
 
         return outputs
 
@@ -259,6 +261,7 @@ class DiffLlamaPrefix(LlamaModel):
             use_cond (bool): Whether to use an additional per-token conditional input `cond`.
             config (LlamaConfig): A LlamaConfig object. A default is provided for convenience.
         """
+        config.head_dim=64
         super().__init__(config)
 
         self.use_text_emb = use_text_emb
@@ -276,9 +279,11 @@ class DiffLlamaPrefix(LlamaModel):
                         num_attention_heads=num_heads,
                         max_position_embeddings=4096,
                         intermediate_size=hidden_size * 4,
+                        attn_implementation="eager",
                     ),
                     layer_idx=i,
                     use_cond=use_cond,
+
                 )
                 for i in range(num_layers)
             ]
@@ -513,7 +518,7 @@ class DiffLlamaPrefix(LlamaModel):
         )
 
         hidden_states = inputs_embeds
-
+        position_embeddings=self.rotary_emb(hidden_states,position_ids)
         # 5. Transformer Decoder Layers
         all_hidden_states = () if output_hidden_states else None
         all_self_attns = () if output_attentions else None
@@ -536,6 +541,7 @@ class DiffLlamaPrefix(LlamaModel):
                 past_key_value=past_key_value,
                 output_attentions=output_attentions,
                 use_cache=use_cache,
+                position_embeddings=position_embeddings,
                 cond_embedding=diffusion_step_emb,
             )
             hidden_states = layer_outputs[0]

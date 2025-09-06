@@ -137,9 +137,9 @@ We introduce the **T**ext-**a**ware **Di**ffusion Transformer Speech **Codec** (
 
 ```python
 # 🤗 Load from Hugging Face with Auto-Download
-from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
-from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
-from models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
+from tadicodec.models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
+from tadicodec.models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+from tadicodec.models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
 
 # Load TaDiCodec tokenizer (auto-downloads from HF if not found locally)
 tokenizer = TaDiCodecPipline.from_pretrained("amphion/TaDiCodec")
@@ -293,8 +293,8 @@ All models support automatic download from Hugging Face! Simply use the Hugging 
 
 ```python
 # Models will be automatically downloaded on first use
-from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
-from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+from tadicodec.models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
+from tadicodec.models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
 
 # Auto-download TaDiCodec
 tokenizer = TaDiCodecPipline.from_pretrained("amphion/TaDiCodec")
@@ -340,7 +340,7 @@ python test_rec.py
 # Example: Using TaDiCodec for speech tokenization
 import torch
 import soundfile as sf
-from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
+from tadicodec.models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -374,7 +374,8 @@ sf.write("./use_examples/test_audio/trump_rec.wav", rec_audio, 24000)
 ```python
 import torch
 import soundfile as sf
-from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+from tadicodec.models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+
 # from models.tts.llm_tts.inference_mgm_tts import MGMInferencePipeline
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

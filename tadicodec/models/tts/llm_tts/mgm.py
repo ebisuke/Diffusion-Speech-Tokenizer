@@ -3,7 +3,7 @@ import numpy as np
 import torch.nn as nn
 import math
 from einops import rearrange
-from models.tts.llm_tts.llama_nar_prefix import DiffLlamaPrefix
+from tadicodec.models.tts.llm_tts.llama_nar_prefix import DiffLlamaPrefix
 
 
 def top_k(logits, thres=0.9):

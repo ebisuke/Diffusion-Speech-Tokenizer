@@ -3,10 +3,10 @@ ruamel.yaml
 tqdm
 tensorboard
 tensorboardX
-onnxruntime-gpu
+onnxruntime
 torch
 huggingface_hub
-transformers==4.42.4
+transformers>=4.56.1
 librosa
 git+https://github.com/facebookresearch/encodec.git@main
 black
@@ -38,4 +38,3 @@ numpy
 scipy
 json5
 openai-whisper
-transformers==4.42.4

@@ -2,9 +2,11 @@ import torch
 
 # ref parent directory
 import sys
-sys.path.append('../')
 
-from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+from tadicodec.models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+
+sys.path.append('..')
+
 
 
 # Usage example

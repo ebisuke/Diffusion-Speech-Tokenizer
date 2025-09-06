@@ -11,8 +11,8 @@ import soundfile as sf
 import sys
 sys.path.append('../')
 
-from models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
-from models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
+from tadicodec.models.tts.tadicodec.inference_tadicodec import TaDiCodecPipline
+from tadicodec.models.tts.llm_tts.inference_llm_tts import TTSInferencePipeline
 
 
 def main():

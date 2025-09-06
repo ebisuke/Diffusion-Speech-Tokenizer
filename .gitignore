@@ -5,3 +5,8 @@ ckpt
 *.DS_Store
 
 *.safetensors
+
+.cadence
+.venv
+.idea
+*.egg-info

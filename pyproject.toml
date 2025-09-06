@@ -1,0 +1,61 @@
+[project]
+name = "diffusion-speech-tokenizer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "accelerate>=1.10.1",
+    "black>=25.1.0",
+    "cn2an>=0.5.23",
+    "encodec",
+    "funasr>=1.2.7",
+    "g2p-en>=2.1.0",
+    "huggingface-hub>=0.34.4",
+    "jieba>=0.42.1",
+    "jiwer>=4.0.0",
+    "json5>=0.12.1",
+    "langsegment>=0.2.0",
+    "librosa>=0.11.0",
+    "modelscope>=1.29.2",
+    "numpy>=1.26.4",
+    "omegaconf>=2.3.0",
+    "onnxruntime>=1.22.1",
+    "openai-whisper>=20250625",
+    "oss2>=2.19.1",
+    "peft>=0.17.1",
+    "phonemizer>=3.3.0",
+    "py3langid>=0.2.2",
+    "pykakasi>=2.3.0",
+    "pyopenjtalk>=0.4.1",
+    "pypinyin>=0.55.0",
+    "pyworld>=0.3.5",
+    "resampy>=0.4.3",
+    "ruamel-yaml>=0.18.15",
+    "scipy>=1.16.1",
+    "setuptools>=80.9.0",
+    "tensorboard>=2.20.0",
+    "tensorboardx>=2.6.4",
+    "timm>=1.0.19",
+    "torch>=2.8.0",
+    "tqdm>=4.67.1",
+    "transformers==4.56.1",
+    "unidecode>=1.4.0",
+    "zhconv>=1.4.3",
+    "zhon>=2.1.1",
+]
+
+[tool.uv.sources]
+encodec = { git = "https://github.com/facebookresearch/encodec.git", rev = "main" }
+diffusion-speech-tokenizer = { workspace = true }
+
+[tool.uv.workspace]
+members = [
+    ".",
+    ".",
+]
+
+[dependency-groups]
+dev = [
+    "diffusion-speech-tokenizer",
+]

@@ -3,15 +3,14 @@ from typing import Union
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from einops import rearrange
 from torch.nn.utils import weight_norm
 
-from models.codec.amphion_codec.quantize.factorized_vector_quantize import (
+from tadicodec.models.codec.amphion_codec.quantize.factorized_vector_quantize import (
     FactorizedVectorQuantize,
 )
-from models.codec.amphion_codec.quantize.vector_quantize import VectorQuantize
-from models.codec.amphion_codec.quantize.lookup_free_quantize import LookupFreeQuantize
+from tadicodec.models.codec.amphion_codec.quantize.vector_quantize import VectorQuantize
+from tadicodec.models.codec.amphion_codec.quantize.lookup_free_quantize import LookupFreeQuantize
 
 
 class ResidualVQ(nn.Module):
